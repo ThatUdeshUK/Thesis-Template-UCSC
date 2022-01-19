@@ -1,0 +1,51 @@
+\documentclass{ucsc} % CHECK THE CLASS FOR STYLES
+
+% >>> THIS IS JUST FOR DUMMY CONTENT
+\usepackage{lipsum}
+% <<<
+
+\addbibresource{ref.bib}
+
+\begin{document}
+
+\input{0_title}
+\input{0_cover}
+
+\restoregeometry
+
+\pagenumbering{roman}
+\input{0_declaration}
+\input{0_abstract}
+\input{0_preface}
+\input{0_acknowledgement}
+
+\renewcommand*\contentsname{Table of Contents}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}\label{introduction}
+\input{1_introduction}
+
+\chapter{Literature Review}\label{lit_review}
+\input{2_literature}
+
+\chapter{Design}\label{design}
+\input{3_design}
+
+\chapter{Implementation}\label{implementation}
+\input{4_implementation}
+
+\chapter{Results and Evaluation}\label{results}
+\input{5_results}
+
+\chapter{Conclusions}\label{conclusions}
+\input{6_conclusions}
+
+\linespread{1}
+\printbibliography
+
+\end{document}
