@@ -1,11 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ucsc}[2022/01/18 Thesis template for UCSC]
+\ProvidesClass{ucsc}[2022/03/31 Thesis template for UCSC]
+
+\newif\ifudraft
+\udraftfalse
+\DeclareOption{udraft}{\udrafttrue}
+\ProcessOptions\relax
 
 \LoadClass[12pt]{report}
 
 \RequirePackage[
     a4paper,
-    left=37mm,
+    left= \ifudraft 25mm \else 37mm \fi,
     top=25mm,
     right=25mm,
     bottom=25mm,
@@ -22,17 +27,26 @@
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts} 
-\RequirePackage{biblatex}
+\RequirePackage[
+backend=biber,
+style=ieee,
+]{biblatex}
+\RequirePackage{lscape}
+\RequirePackage{afterpage}
+\RequirePackage[]{todonotes}
+\RequirePackage{listings}
+\RequirePackage{acronym}
+\RequirePackage[toc]{appendix}
 
 % Font
 % Calibri only works with LuaLaTex or XeLaTex. 
 % If you're using pdfLaTex, just comment out following.
-\RequirePackage{fontspec}
-\setmainfont[Path=fonts/,
-    BoldItalicFont=calibri-bold-italic.ttf,
-    BoldFont=calibri-bold.ttf,
-    ItalicFont=calibri-italic.ttf
-]{calibri-regular.ttf}
+% \RequirePackage{fontspec}
+% \setmainfont[Path=fonts/,
+%     BoldItalicFont=calibri-bold-italic.ttf,
+%     BoldFont=calibri-bold.ttf,
+%     ItalicFont=calibri-italic.ttf
+% ]{calibri-regular.ttf}
 
 % Chapter title styles
 \makeatletter
@@ -63,10 +77,24 @@
   {\fontsize{12pt}{14.4pt}\selectfont\bfseries}{\thesubsubsection}{0.5em}{}
 
 % Paragraph styles
-\linespread{1.5}
+\ifudraft
+    \linespread{1}
+\else
+    \linespread{1.5}
+\fi
+
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 
+% Lists
+\RequirePackage{enumitem}
+\setlist{itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+% Tables
+\RequirePackage{etoolbox}
+\AtBeginEnvironment{tabular}{\fontsize{11pt}{13.2pt}\selectfont}
+
 % Math
 \newtheorem{definition}{Definition}
-
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Parameter:}}
